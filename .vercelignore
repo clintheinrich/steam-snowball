@@ -2,7 +2,6 @@
 venv
 __pycache__
 *.pyc
-game_cache.json
 config.json
 test_*.py
 debug_headers.py
