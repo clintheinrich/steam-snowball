@@ -21,11 +21,19 @@
                 <label for="steamId">Steam ID or Vanity URL</label>
                 <input type="text" id="steamId" placeholder="e.g. gabelogannewell or 76561197960287930">
             </div>
-            <small><a href="https://steamcommunity.com/my/profile" target="_blank" rel="noopener noreferrer" class="accent-link">Click here to see
-                    your profile (your ID number is in the URL after &quot;profile/&quot;)</a></small>
-            <div class="api-key-details">
-                <p class="details-heading">Use a Steam Web API Key</p>
-                <p class="details-copy">This always works for public profiles, but you can input a Steam Web API Key to see your private profile or profiles from your friends list. <a href="https://steamcommunity.com/dev/apikey" target="_blank" rel="noopener noreferrer" class="accent-link">Click here to get an API key.</a></p>
+            
+            <div class="text-panel">
+                <p class="details-heading">How Does This Work?</p>
+                <p class="details-copy">Do you dream of finishing all the games in your Steam library? This tool will help figure out
+                    which games you can finish the fastest, so you can clear out your backlog snowball style! Enter your Steam ID number 
+                    (or username, if you have a custom URL), and this tool will tell you which games you can finish the fastest. <b>Warning:</b> 
+                loading data from HowLongToBeat can be slow.</p>
+                <p class="details-copy"><a href="https://steamcommunity.com/my/profile" target="_blank" rel="noopener noreferrer" class="accent-link">Click here to see
+                    your profile (your ID number or name will be in the URL after &quot;profile/&quot;)</a></p>
+                <p class="details-copy">Your profile must be public to use this tool. Alternately, you can <button type="button" id="revealApiKey" class="api-key-trigger" aria-expanded="false" aria-controls="apiKeyPanel">Input an API key</button> to see your private profile or profiles from your friends list.</p>
+            </div>
+            <div class="section-divider" aria-hidden="true"></div>
+            <div id="apiKeyPanel" class="api-key-details hidden">
                 <div class="form-group">
                     <label for="apiKey">Steam Web API Key</label>
                     <div class="password-wrapper">
@@ -39,6 +47,7 @@
                             </svg>
                         </button>
                     </div>
+                    <p class="details-copy"><a href="https://steamcommunity.com/dev/apikey" target="_blank" rel="noopener noreferrer" class="accent-link">Click here to get an API key.</a></p>
                 </div>
             </div>
             <button id="loadBtn" class="primary-btn">Load Library</button>

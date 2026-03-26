@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const HLTB_CACHE_LIMIT = 2000;
     const loadBtn = document.getElementById('loadBtn');
     const apiKeyInput = document.getElementById('apiKey');
+    const apiKeyPanel = document.getElementById('apiKeyPanel');
+    const revealApiKeyBtn = document.getElementById('revealApiKey');
     const steamIdInput = document.getElementById('steamId');
     const statusMsg = document.getElementById('statusMsg');
     const resultsPanel = document.getElementById('resultsPanel');
@@ -21,6 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let hltbCache = loadHltbCache();
 
     if (localStorage.getItem('steamApiKey')) apiKeyInput.value = localStorage.getItem('steamApiKey');
+    if (localStorage.getItem('steamApiKey') && apiKeyPanel && revealApiKeyBtn) {
+        apiKeyPanel.classList.remove('hidden');
+        revealApiKeyBtn.setAttribute('aria-expanded', 'true');
+    }
     if (localStorage.getItem('steamId')) steamIdInput.value = localStorage.getItem('steamId');
     if (localStorage.getItem('searchFilter')) searchFilter.value = localStorage.getItem('searchFilter');
     if (localStorage.getItem('unplayedOnly') === 'true') unplayedOnlyFilter.checked = true;
@@ -29,6 +35,18 @@ document.addEventListener('DOMContentLoaded', () => {
     maxHoursFilter.disabled = !maxHoursEnabledFilter.checked;
 
     const toggleApiKeyBtn = document.getElementById('toggleApiKey');
+    if (revealApiKeyBtn && apiKeyPanel) {
+        revealApiKeyBtn.addEventListener('click', () => {
+            const isHidden = apiKeyPanel.classList.contains('hidden');
+            apiKeyPanel.classList.toggle('hidden', !isHidden);
+            revealApiKeyBtn.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+
+            if (isHidden) {
+                apiKeyInput.focus();
+            }
+        });
+    }
+
     if (toggleApiKeyBtn) {
         toggleApiKeyBtn.addEventListener('click', () => {
             const type = apiKeyInput.getAttribute('type') === 'password' ? 'text' : 'password';
