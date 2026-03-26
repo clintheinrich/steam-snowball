@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steam Backlog Manager</title>
+    <link rel="stylesheet" href="/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Steam Backlog Manager</h1>
+            <p>Sort your Steam library by completion time using <a href="https://howlongtobeat.com/" target="_blank" rel="noopener noreferrer" class="accent-link">HowLongToBeat</a> data.</p>
+        </header>
+
+        <div class="glass-panel input-section">
+            <div class="form-group">
+                <label for="steamId">Steam ID or Vanity URL</label>
+                <input type="text" id="steamId" placeholder="e.g. gabelogannewell or 76561197960287930">
+            </div>
+            <small><a href="https://steamcommunity.com/my/profile" target="_blank" rel="noopener noreferrer" class="accent-link">Click here to see
+                    your profile (your ID number is in the URL after &quot;profile/&quot;)</a></small>
+            <div class="api-key-details">
+                <p class="details-heading">Use a Steam Web API Key</p>
+                <p class="details-copy">This always works for public profiles, but you can input a Steam Web API Key to see your private profile or profiles from your friends list. <a href="https://steamcommunity.com/dev/apikey" target="_blank" rel="noopener noreferrer" class="accent-link">Click here to get an API key.</a></p>
+                <div class="form-group">
+                    <label for="apiKey">Steam Web API Key</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="apiKey" placeholder="Enter your API Key">
+                        <button type="button" id="toggleApiKey" class="toggle-btn" aria-label="Show API key" aria-pressed="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="feather feather-eye" aria-hidden="true" focusable="false">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <button id="loadBtn" class="primary-btn">Load Library</button>
+        </div>
+
+        <div id="statusMsg" class="status-message" role="status" aria-live="polite" aria-atomic="true"></div>
+
+        <div class="glass-panel table-container hidden" id="resultsPanel">
+            <div class="table-controls">
+                <div class="filter-controls">
+                    <label for="searchFilter" class="sr-only">Filter games by name</label>
+                    <input type="text" id="searchFilter" placeholder="Filter games...">
+                    <label class="filter-toggle" for="unplayedOnly">
+                        <input type="checkbox" id="unplayedOnly">
+                        <span>Unplayed only</span>
+                    </label>
+                    <label class="filter-toggle" for="maxHoursEnabled">
+                        <input type="checkbox" id="maxHoursEnabled">
+                        <span>Played less than</span>
+                    </label>
+                    <label for="maxHoursFilter" class="sr-only">Maximum hours played</label>
+                    <input type="number" id="maxHoursFilter" min="0"> hours
+                </div>
+                <div class="stats" id="statsDisplay"></div>
+            </div>
+            <table id="gamesTable">
+                <caption class="sr-only">Steam games with playtime and HowLongToBeat estimates</caption>
+                <thead>
+                    <tr>
+                        <th scope="col" width="40%">Game</th>
+                        <th scope="col" class="sortable" aria-sort="descending">
+                            <button type="button" class="sort-btn" data-sort="playtime">
+                                <span>Played</span>
+                                <span class="arrow" aria-hidden="true">&#9660;</span>
+                            </button>
+                        </th>
+                        <th scope="col" class="sortable" aria-sort="none">
+                            <button type="button" class="sort-btn" data-sort="main">
+                                <span>Main Story</span>
+                                <span class="arrow" aria-hidden="true"></span>
+                            </button>
+                        </th>
+                        <th scope="col" class="sortable" aria-sort="none">
+                            <button type="button" class="sort-btn" data-sort="extra">
+                                <span>Main + Extra</span>
+                                <span class="arrow" aria-hidden="true"></span>
+                            </button>
+                        </th>
+                        <th scope="col" class="sortable" aria-sort="none">
+                            <button type="button" class="sort-btn" data-sort="completionist">
+                                <span>Completionist</span>
+                                <span class="arrow" aria-hidden="true"></span>
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="gamesBody">
+                    <!-- Rows will be injected here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="/script.js"></script>
+</body>
+
+</html>

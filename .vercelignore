@@ -1,0 +1,11 @@
+.venv
+venv
+__pycache__
+*.pyc
+game_cache.json
+config.json
+test_*.py
+debug_headers.py
+debug_headers_live.py
+verify_wishlist.py
+run.bat
