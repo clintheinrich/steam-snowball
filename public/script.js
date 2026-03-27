@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const statsDisplay = document.getElementById('statsDisplay');
     const searchFilter = document.getElementById('searchFilter');
     const unplayedOnlyFilter = document.getElementById('unplayedOnly');
+    const hideMissingHltbFilter = document.getElementById('hideMissingHltb');
     const maxHoursEnabledFilter = document.getElementById('maxHoursEnabled');
     const maxHoursFilter = document.getElementById('maxHoursFilter');
 
@@ -30,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (localStorage.getItem('steamId')) steamIdInput.value = localStorage.getItem('steamId');
     if (localStorage.getItem('searchFilter')) searchFilter.value = localStorage.getItem('searchFilter');
     if (localStorage.getItem('unplayedOnly') === 'true') unplayedOnlyFilter.checked = true;
+    if (localStorage.getItem('hideMissingHltb') === 'true') hideMissingHltbFilter.checked = true;
     if (localStorage.getItem('maxHoursEnabled') === 'true') maxHoursEnabledFilter.checked = true;
     if (localStorage.getItem('maxHoursFilter')) maxHoursFilter.value = localStorage.getItem('maxHoursFilter');
     maxHoursFilter.disabled = !maxHoursEnabledFilter.checked;
@@ -255,6 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function getFilteredGames() {
         const term = searchFilter.value.trim().toLowerCase();
         const unplayedOnly = unplayedOnlyFilter.checked;
+        const hideMissingHltb = hideMissingHltbFilter.checked;
         const maxHoursEnabled = maxHoursEnabledFilter.checked;
         const maxHours = Number(maxHoursFilter.value);
 
@@ -266,6 +269,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (unplayedOnly && playtimeHours > 0) {
+                return false;
+            }
+
+            if (hideMissingHltb && (!game.hltb || game.hltb.not_found)) {
                 return false;
             }
 
@@ -301,6 +308,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     unplayedOnlyFilter.addEventListener('change', () => {
         localStorage.setItem('unplayedOnly', String(unplayedOnlyFilter.checked));
+        applyCurrentView();
+    });
+
+    hideMissingHltbFilter.addEventListener('change', () => {
+        localStorage.setItem('hideMissingHltb', String(hideMissingHltbFilter.checked));
         applyCurrentView();
     });
 

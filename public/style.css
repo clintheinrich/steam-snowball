@@ -388,7 +388,7 @@ tbody tr:hover {
 .filter-controls {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 1rem;
     flex-wrap: wrap;
     flex: 1;
 }
@@ -408,7 +408,7 @@ tbody tr:hover {
 
 #searchFilter {
     padding: 0.6rem;
-    width: 300px;
+    width: 260px;
 }
 
 #maxHoursFilter {

@@ -65,13 +65,19 @@
                         <input type="checkbox" id="unplayedOnly">
                         <span>Unplayed only</span>
                     </label>
+                    
                     <label class="filter-toggle" for="maxHoursEnabled">
                         <input type="checkbox" id="maxHoursEnabled">
-                        <span>Played less than</span>
+                        <span>Hours played</span>
                     </label>
                     <label for="maxHoursFilter" class="sr-only">Maximum hours played</label>
-                    <input type="number" id="maxHoursFilter" min="0"> hours
+                    <input type="number" id="maxHoursFilter" min="0">
+                    <label class="filter-toggle" for="hideMissingHltb">
+                        <input type="checkbox" id="hideMissingHltb">
+                        <span>Hide games without data</span>
+                </label>
                 </div>
+                
                 <div class="stats" id="statsDisplay"></div>
             </div>
             <table id="gamesTable">
